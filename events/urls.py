@@ -38,4 +38,5 @@ urlpatterns = [
     # apps
 
     path("user/", include('user.urls')),
+    path("main/", include('main.urls')),
 ]
