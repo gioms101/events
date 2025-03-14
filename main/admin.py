@@ -1,8 +1,10 @@
 from django.contrib import admin
-from .models import Movie, Ticket, MovieTheater
+from .models import Movie, Ticket, MovieTheater, Category, MovieDate
 
 # Register your models here.
 
 admin.site.register(Movie)
 admin.site.register(Ticket)
 admin.site.register(MovieTheater)
+admin.site.register(Category)
+admin.site.register(MovieDate)

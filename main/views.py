@@ -4,12 +4,16 @@ from rest_framework.decorators import action
 from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from django_filters import rest_framework as filters
 from .models import Movie, Ticket
 from .serializers import ListEventSerializer, RetrieveEventSerializer, TicketSerializer
+from .cfilters import MovieFilter
 
 
 class EventModelViewSet(viewsets.ReadOnlyModelViewSet):
-    queryset = Movie.objects.all()
+    queryset = Movie.objects.select_related('category').prefetch_related('theater', 'date').all()
+    filter_backends = (filters.DjangoFilterBackend,)
+    filterset_class = MovieFilter
 
     def get_serializer_class(self):
         if self.action == 'list':
@@ -35,6 +39,7 @@ class TotalPriceAPIView(GenericAPIView):
     """
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, *args, **kwargs):
+    @staticmethod
+    def get(request, *args, **kwargs):
         return Response({"total_sum": Ticket.objects.filter(selected_ticket_id=request.user.id)
                         .aggregate(total_sum=Sum('price'))}['total_sum'])

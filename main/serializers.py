@@ -5,13 +5,15 @@ from .models import Movie, Ticket
 class ListEventSerializer(serializers.ModelSerializer):
     class Meta:
         model = Movie
-        fields = ("id", "name", "location")
+        fields = ("id", "name")
 
 
 class RetrieveEventSerializer(serializers.ModelSerializer):
+    category = serializers.CharField(source='category.name')
+
     class Meta:
         model = Movie
-        fields = "__all__"
+        exclude = ("theater",)
 
 
 class TicketSerializer(serializers.ModelSerializer):
