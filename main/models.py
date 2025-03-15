@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.text import slugify
@@ -9,13 +11,6 @@ class MovieTheater(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class MovieDate(models.Model):
-    date = models.DateTimeField()
-
-    def __str__(self):
-        return self.date.strftime("%d %B %H:%M")
 
 
 class Category(models.Model):
@@ -34,8 +29,6 @@ class Category(models.Model):
 class Movie(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField()
-    date = models.ManyToManyField(MovieDate, related_name='movies')
-    theater = models.ManyToManyField(MovieTheater, related_name='movies')
     category = models.ForeignKey(Category, on_delete=models.SET_NULL, null=True, related_name='movies')
 
     def __str__(self):
@@ -49,6 +42,10 @@ class Ticket(models.Model):
     movie = models.ForeignKey(Movie, on_delete=models.CASCADE)
     selected_ticket = models.ForeignKey(User, on_delete=models.DO_NOTHING, blank=True, null=True,
                                         related_name='selected_tickets')
+    theater = models.ForeignKey(MovieTheater, on_delete=models.CASCADE, blank=True, null=True)
+    date = models.DateTimeField(default=datetime.now)
+    row = models.PositiveIntegerField(default=0)
+    seat = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.name

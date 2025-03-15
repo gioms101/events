@@ -13,10 +13,12 @@ class RetrieveEventSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Movie
-        exclude = ("theater",)
+        fields = ("category",)
 
 
 class TicketSerializer(serializers.ModelSerializer):
+    theater = serializers.CharField(source="theater.name")
+
     class Meta:
         model = Ticket
-        fields = ("id", "name", 'price')
+        fields = ("id", "name", 'price', "theater", "date")
