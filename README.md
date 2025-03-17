@@ -52,6 +52,8 @@ This project is a **Movie Ticket Booking System** built using **Django Rest Fram
 - WebSocket: `ws://yourdomain.com/ws/events/{movie_id}/?date=YYYY-MM-DD&theater=XYZ`
 - Allows real-time ticket selection and removal
 
+![Image](https://github.com/user-attachments/assets/90cb0b4b-9cdc-4a8e-9073-6f812f150525)
+
 ### Payment API
 - `POST /api/payment/create/` - Create PayPal payment
 - `GET /api/payment/execute/` - Execute payment after approval
