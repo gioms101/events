@@ -123,6 +123,9 @@ Update `settings.py` with your **PayPal Client ID** and **Secret**:
     PAYPAL_MODE = 'sandbox'  # or 'live'
     PAYPAL_CLIENT_ID = 'your-client-id'
     PAYPAL_SECRET = 'your-client-secret'
+    POSTGRES_DB=
+    POSTGRES_USER=
+    POSTGRES_PASSWORD=
 ```
 
 ---
